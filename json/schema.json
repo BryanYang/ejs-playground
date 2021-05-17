@@ -1,0 +1,220 @@
+{
+  "appId": 1001100110011001,
+  "page": 11770,
+  "version": 0,
+  "versionCode": 0,
+  "name": "inductionVerification",
+  "caption": "老员工入职校验",
+  "description": "老员工入职校验",
+  "type": "TRIGGER",
+  "visibility": {
+    "openApi": false,
+    "isAsync": false
+  },
+  "commandFlag": true,
+  "transactional": {
+    "enable": true,
+    "propagation": "required",
+    "readOnly": false
+  },
+  "dtc": {
+    "enable": true,
+    "type": "tcc",
+    "groupDtc": {
+      "confirm": "12321312312",
+      "cancel": "123123123"
+    }
+  },
+  "nodes": [
+    {
+      "nodeId": "ifMarried",
+      "type": "Branch",
+      "caption": "是否已婚",
+      "description": "判断是否已婚，已婚的话显示婚姻表单",
+      "conditions": [
+        {
+          "nodeId": "isMarried",
+          "type": "Condition",
+          "caption": "已婚",
+          "description": "已婚",
+          "runAfter": null,
+          "expression": "$selector_married is 1",
+          "nodes": [
+            {
+              "nodeId": "showMarried",
+              "type": "Activity",
+              "actionType": "setVisible",
+              "caption": "显示婚姻表单",
+              "description": "显示婚姻表单",
+              "output": null,
+              "visible": [
+                "form_married"
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId": "notMarried",
+          "type": "Condition",
+          "caption": "未婚",
+          "description": "未婚",
+          "runAfter": null,
+          "expression": "$selector_married is 0",
+          "nodes": [
+            {
+              "nodeId": "hideMarried",
+              "type": "Activity",
+              "actionType": "setVisible",
+              "caption": "隐藏婚姻表单",
+              "description": "隐藏婚姻表单",
+              "output": null,
+              "invisible": [
+                "form_married"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "setValue",
+      "caption": "DTO",
+      "description": "设置值",
+      "input": null,
+      "output": null,
+      "elementId": "input_313",
+      "value": {
+        "type": "simple",
+        "expression": {
+          "schema": "",
+          "title": "张三"
+        },
+        "selectParam": null,
+        "simple": "sdds"
+      }
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "setRequired",
+      "caption": "DTO",
+      "description": "设置必填/可见/禁用/只读",
+      "input": null,
+      "output": null,
+      "required": [
+        "input1",
+        "input2",
+        "input34"
+      ],
+      "option": [
+        "input4",
+        "selector1"
+      ]
+    },
+    {
+      "actionType": "setVisible",
+      "visible": [
+        "input1"
+      ],
+      "invisible": [
+        "input4"
+      ]
+    },
+    {
+      "actionType": "setDisable",
+      "disable": [
+        "input1"
+      ],
+      "enable": [
+        "input4"
+      ]
+    },
+    {
+      "actionType": "setReadonly",
+      "readOnly": [
+        "input1"
+      ],
+      "editable": [
+        "input4"
+      ]
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "openPage",
+      "caption": "DTO",
+      "description": "打开页面",
+      "input": null,
+      "output": null,
+      "url": "",
+      "queryObject": {}
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "openWindow",
+      "caption": "DTO",
+      "description": "打开链接",
+      "input": null,
+      "output": null,
+      "url": "www.seeyon.com",
+      "queryString": "?sdf=1",
+      "target": "_blank"
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "closePage",
+      "caption": "DTO",
+      "description": "关闭页面",
+      "input": null,
+      "output": null,
+      "confirm": "dsdd"
+    },
+    {
+      "nodeId": "changeVar",
+      "type": "Activity",
+      "actionType": "callMicroFlow",
+      "caption": "DTO",
+      "description": "调用微流程",
+      "input": null,
+      "output": null,
+      "microFlow": "fliwdsafasd"
+    }
+  ],
+  "trigger": {
+    "nodeId": "triggerNodeId",
+    "caption": "定时触发",
+    "description": "定时触发",
+    "type": "Schedule",
+    "input": null,
+    "output": null,
+    "scheduleRule": {
+      "scheduleName": "MyJob001",
+      "scheduleTiming": null,
+      "scheduleType": "INTERVAL",
+      "scheduleInterval": {
+        "day": 1,
+        "minute": 1
+      },
+      "startTime": 1618223360037,
+      "endTime": 1618223360037
+    }
+  },
+  "input": {
+    "dataType": "dto",
+    "type": "object",
+    "name": "order",
+    "id": "369266748454651904",
+    "desc": "订单"
+  },
+  "output": {
+    "dataType": "dto",
+    "type": "object",
+    "name": "order",
+    "id": "369266748454651904",
+    "desc": "订单"
+  }
+}

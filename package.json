@@ -4,7 +4,8 @@
   "description": "A web app to play with EJS templates.",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -38,5 +39,14 @@
     "bloggify.js",
     "bloggify.json",
     "bloggify/"
-  ]
+  ],
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "koa-bodyparser": "^4.3.0",
+    "koa-route": "^3.2.0",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "koa": "^2.13.1"
+  }
 }

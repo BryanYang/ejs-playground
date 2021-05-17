@@ -6,13 +6,21 @@
     height: 100vh;
 }
 
+.row .col:nth-child(2) {
+    flex: 2;
+}
+
+
+
 body {
     margin: 0;
 }
 
-#editor {
+#schema, #result,#editor  {
     height: 100vh;
 }
+
+
 
 .col-result {
     overflow: auto;

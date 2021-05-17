@@ -1,0 +1,81 @@
+<% for(var i =0; i< nodes.length; i++) { %>
+    <% var node = nodes[i] %>
+
+     <%# setValue 逻辑 %>
+    <% if (node.actionType === 'setValue') { %>
+    // setValue
+    <% var value = node.value.simple %>
+    <% if (typeof value === 'string') { %>
+        <%value = `"${value}"` %>
+    <% } %>
+          result["<%= node.elementId %>"] = result["<%= node.elementId %>"] || {};
+    result["<%= node.elementId %>"]["value"] = <%- value%>;
+    <% } %>
+    
+    
+    <%# setRequired 逻辑 %>
+    <% if (node.actionType === 'setRequired') { %>
+    // required 
+    <% node.required.forEach(id => { %>
+    result["<%= id %>"] = result["<%= id %>"] || {};
+    result["<%= id %>"]["required"] = true;
+    <% }) %>
+    
+    // option
+    <% node.option.forEach(id => { %>
+    result["<%= id %>"] = result["<%= id %>"] || {};
+    result["<%= id %>"]["required"] = false;
+    <% }) %>
+    <% } %>
+    
+    <%# setVisible 逻辑 %>
+    <% if (node.actionType === 'setVisible') { %>
+    // visibled
+    <% node.visible.forEach(id => { %>
+    result["<%= id %>"] = result["<%= id %>"] || {};
+    result["<%= id %>"]["visible"] = true;
+    <% }) %>
+    
+    // invisible
+    <% node.invisible.forEach(id => { %>
+    result["<%= id %>"] = result["<%= id %>"] || {};
+    result["<%= id %>"]["visible"] = false;
+    <% }) %>
+    <% } %>
+
+    <%# 跳转页面逻辑 %>
+    <% if (node.actionType === 'openWindow') { %>
+    // 跳转页面
+    <% if(node.target === "_blank") { %>
+        window.open('<%=`${node.url}${node.queryString}`%>')
+     <% } else if (node.target === '_self') { %>
+        window.location.href = '<%=`${node.url}${node.queryString}`%>'
+     <% } %>
+    <% } %>
+    
+    <%# 关闭页面 %>
+    <% if (node.actionType === 'closePage') { %>
+    // 关闭页面
+    <% if(node.confirm) { %>
+        Modal.confirm({
+            content: '<%= node.confirm %>',
+            onOk: () => window.close();
+        })
+     <% } %>
+    <% } %>
+
+
+    <%# 调用微流程%>
+    <% if (node.actionType === 'callMicroFlow') { %>
+        // 调用微流程
+        callMicroflow('<%= node.microflow %>')
+    <% } %>
+    
+    <%# 逻辑判断  %>
+    <% if (node.type === 'Branch') { %>
+    // 生成逻辑判断分支
+      <% for (let i = 0; i< node.conditions.length; i++) { %>
+      <% } %>
+    <% } %>
+    
+<% } %>
